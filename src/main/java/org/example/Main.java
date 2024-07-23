@@ -9,12 +9,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Crawler crawler=new Crawler();
-        StringUtil stringUtil=new StringUtil();
-        List<UrlEntity> urlEntityList=crawler.getUrls("sh","明天华城");
+        String communityName="明天华城";
+        txtExporter txtExporter =new txtExporter("D:\\"+communityName+".txt");
+        List<UrlEntity> urlEntityList=crawler.getUrls("sh",communityName);
         try {
             List<HouseEntity> houseEntityList = (List<HouseEntity>) crawler.crawlData(urlEntityList);
             System.out.println("房源总量="+ houseEntityList.size());
-            StringUtil.writeToText(houseEntityList,"D:\\明天华城.txt");
+            txtExporter.exportToTxt("小区名称,室,厅,面积,成交日期,成交金额,建成年份,成交单价,挂牌金额,成交周期(天)");
+            txtExporter.exportToTxt(houseEntityList);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
