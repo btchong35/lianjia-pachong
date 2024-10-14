@@ -8,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -24,7 +25,7 @@ public class Crawler {
      * @param communityName 小区名字（中文）
      * @return 需要爬取的url列表
      */
-    public List<UrlEntity> getUrls(String city, String communityName) throws Exception {
+    public List<UrlEntity> getUrls(String city, String communityName) {
         List<UrlEntity> urlList = new ArrayList<>();
         String newCommunityName = "";
         //将中文小区名字转换成百分号形式
@@ -54,17 +55,13 @@ public class Crawler {
             Pattern pattern = Pattern.compile("\\d+");
             Matcher matcher = pattern.matcher(pageData);
             //获取查询结果页数
-            if(matcher.find()){
-                String pageCountString = matcher.group();
-                System.out.println("pageCountString="+pageCountString);
-                int pageCountInt = Integer.parseInt(pageCountString);
-                for (int i = 1; i <= pageCountInt; i++) {
-                    urlList.add(new UrlEntity("https://" + city + ".lianjia.com/chengjiao/pg" + i + "rs" + newCommunityName + "/"));
-                }
-                return urlList;
-            }else{
-                throw new Exception("无法找到总页数");
+            String pageCountString = matcher.group();
+            System.out.println("pageCountString="+pageCountString);
+            int pageCountInt = Integer.parseInt(pageCountString);
+            for (int i = 1; i <= pageCountInt; i++) {
+                urlList.add(new UrlEntity("https://" + city + ".lianjia.com/chengjiao/pg" + i + "rs" + newCommunityName + "/"));
             }
+            return urlList;
         }
     }
 
