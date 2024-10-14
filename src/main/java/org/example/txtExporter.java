@@ -35,11 +35,10 @@ public class txtExporter {
         String result=matcher.replaceAll("").trim();
         return result;
     }*/
-    public  void exportToTxt(String string) throws IOException {
-        bufferedWriter.write(string);
+    public  void exportToTxt(String filePath) throws IOException {
+
+        bufferedWriter.write(filePath);
         bufferedWriter.newLine();
-        bufferedWriter.close();
-        fileWriter.close();
     }
 
     public  void exportToTxt(List<? extends BaseEntity> list){
@@ -51,10 +50,18 @@ public class txtExporter {
                     bufferedWriter.newLine();
                 }
             }
-            bufferedWriter.close();
-            fileWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void closeWriter()  {
+        try {
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("IO流已关闭");
+        }
+
     }
 }
