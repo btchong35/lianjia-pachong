@@ -15,7 +15,7 @@ public class Main {
         try {
             List<HouseEntity> houseEntityList = (List<HouseEntity>) crawler.crawlData(urlEntityList);
             System.out.println("房源总量="+ houseEntityList.size());
-            txtExporter.exportToTxt("小区名称,室,厅,面积,成交日期,成交金额,建成年份,成交单价,挂牌金额,成交周期(天)222222");
+            txtExporter.exportToTxt("小区名称,室,厅,面积,成交日期,成交金额,建成年份,成交单价,挂牌金额,成交周期(天)");
             txtExporter.exportToTxt(houseEntityList);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
